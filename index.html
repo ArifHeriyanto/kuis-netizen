@@ -2,142 +2,121 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>KUIS NETIZEN - Seberapa Kocak Kamu?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Netizen</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: #fff8dc;
+      background-color: #f0f8ff;
+      margin: 0;
       padding: 20px;
-      color: #333;
       text-align: center;
     }
+
     h1 {
-      color: #ff4500;
-      margin-bottom: 30px;
-      animation: shake 1s infinite alternate;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 10px;
-      background: #f9f9f9;
-      border-radius: 10px;
-      text-align: left;
-    }
-    #result {
-      font-weight: bold;
-      font-size: 26px;
-      margin-top: 30px;
-      color: #008000;
-      animation: bounce 1s infinite;
-    }
-    button {
-      margin: 20px 10px;
-      padding: 12px 24px;
-      background: #ff4500;
-      color: #fff;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #ff6347;
+      font-size: 7vw;
+      color: #ff69b4;
+      margin-bottom: 20px;
     }
 
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+    #question {
+      font-size: 5vw;
+      margin-bottom: 30px;
     }
-    @keyframes shake {
-      0% { transform: rotate(1deg); }
-      100% { transform: rotate(-1deg); }
+
+    button {
+      font-size: 5vw;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    #result {
+      font-size: 5vw;
+      margin-top: 30px;
+      color: #4CAF50;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-<h1>🔥 KUIS NETIZEN 🔥</h1>
+  <h1>KUIS NETIZEN 🤣</h1>
+  <div id="quiz-container">
+    <div id="question"></div>
+    <div id="options"></div>
+    <div id="result"></div>
+  </div>
 
-<div class="question">
-  <p>1. Ada postingan baru, kamu langsung?</p>
-  <input type="radio" name="q1" value="2"> Buka komentar, cari keributan<br>
-  <input type="radio" name="q1" value="1"> Like sambil senyum-senyum<br>
-  <input type="radio" name="q1" value="0"> Scroll lanjut, no drama<br>
-</div>
+  <script>
+    const questions = [
+      {
+        question: "Apa reaksi kamu kalau dompet jatuh di jalanan rame?",
+        options: [
+          "Ngambil cepet sambil pura-pura ngikat tali sepatu 😳",
+          "Angkat aja sambil joget TikTok 😎",
+          "Diam terpaku, berharap bumi menelanmu 😭"
+        ]
+      },
+      {
+        question: "Apa yang kamu lakukan saat ketemu mantan di kondangan?",
+        options: [
+          "Senyum kaku sambil minum es teh 🍹",
+          "Mendadak sibuk balas chat palsu 📱",
+          "Berpura-pura lupa ingatan 🤯"
+        ]
+      },
+      {
+        question: "Kalau tiba-tiba dipanggil bos di grup chat, kamu?",
+        options: [
+          "Tiba-tiba sinyal hilang 📵",
+          "Nanya 'Ada apa, bos?' padahal sudah deg-degan 😰",
+          "Balas dengan stiker ketawa ngakak 🤣"
+        ]
+      }
+    ];
 
-<div class="question">
-  <p>2. Kalau ada debat seru di kolom komentar, kamu?</p>
-  <input type="radio" name="q2" value="2"> Ikut nyamber pake capslock<br>
-  <input type="radio" name="q2" value="1"> Jadi silent reader bijaksana<br>
-  <input type="radio" name="q2" value="0"> Blok semua orang, capek<br>
-</div>
+    let currentQuestion = 0;
 
-<div class="question">
-  <p>3. Caption foto kamu biasanya?</p>
-  <input type="radio" name="q3" value="2"> "Caption menyusul"<br>
-  <input type="radio" name="q3" value="1"> Quote bijak dari Google<br>
-  <input type="radio" name="q3" value="0"> "Kalo mau kenalan, DM aja"<br>
-</div>
+    function showQuestion() {
+      if (currentQuestion < questions.length) {
+        document.getElementById('result').innerHTML = "";
+        document.getElementById('question').innerHTML = questions[currentQuestion].question;
+        const optionsDiv = document.getElementById('options');
+        optionsDiv.innerHTML = "";
 
-<div class="question">
-  <p>4. Apa reaksi kamu pas liat meme receh?</p>
-  <input type="radio" name="q4" value="2"> Ketawa sampe nangis 😂<br>
-  <input type="radio" name="q4" value="1"> Senyum tipis aja 😏<br>
-  <input type="radio" name="q4" value="0"> Scroll serius, gak lucu<br>
-</div>
-
-<div class="question">
-  <p>5. Tagline kamu sebagai netizen adalah?</p>
-  <input type="radio" name="q5" value="2"> "Cerdas di komentar, santuy di hati"<br>
-  <input type="radio" name="q5" value="1"> "Lur lur, gaskeun!"<br>
-  <input type="radio" name="q5" value="0"> "Males komen, males drama"<br>
-</div>
-
-<button onclick="cekJawaban()">Kirim Jawaban</button>
-
-<div id="result"></div>
-<br>
-<div id="share-btn" style="display:none;">
-  <button onclick="shareFacebook()">Bagikan ke Facebook 🔥</button>
-</div>
-
-<audio id="laugh-sound" src="https://www.soundjay.com/human/laugh-1.mp3" preload="auto"></audio>
-
-<script>
-function cekJawaban() {
-  let skor = 0;
-  for (let i = 1; i <= 5; i++) {
-    let jawaban = document.querySelector('input[name="q' + i + '"]:checked');
-    if (jawaban) {
-      skor += parseInt(jawaban.value);
+        questions[currentQuestion].options.forEach(option => {
+          const button = document.createElement('button');
+          button.innerText = option;
+          button.onclick = () => {
+            document.getElementById('result').innerHTML = "Jawaban kamu: " + option;
+            setTimeout(() => {
+              currentQuestion++;
+              showQuestion();
+            }, 1500); // lanjut ke soal berikutnya setelah 1,5 detik
+          };
+          optionsDiv.appendChild(button);
+        });
+      } else {
+        document.getElementById('quiz-container').innerHTML = "<h2>🎉 Kamu benar-benar netizen sejati! 🎉</h2>";
+      }
     }
-  }
 
-  let hasil = "";
-
-  if (skor <= 3) {
-    hasil = "🤐 Kamu Netizen Malu-malu. Scroll aja deh, jangan ribut.";
-  } else if (skor <= 7) {
-    hasil = "😎 Kamu Netizen Santuy. Komentar iya, drama nggak.";
-  } else {
-    hasil = "🔥 Kamu Netizen Sejati! Komentar dulu baru baca postingan! 😂";
-  }
-
-  document.getElementById('result').innerHTML = hasil;
-  document.getElementById('share-btn').style.display = "block";
-  document.getElementById('laugh-sound').play();
-}
-
-function shareFacebook() {
-  let url = encodeURIComponent(window.location.href);
-  let text = encodeURIComponent("Aku baru ikut KUIS NETIZEN! Hasilku gokil banget 😂. Kamu juga cobain!");
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
-}
-</script>
+    showQuestion();
+  </script>
 
 </body>
 </html>
