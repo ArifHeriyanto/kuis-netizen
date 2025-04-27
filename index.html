@@ -50,6 +50,13 @@
       color: #4CAF50;
       font-weight: bold;
     }
+
+    #final-feedback {
+      font-size: 5vw;
+      color: #ff6347;
+      font-weight: bold;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -59,7 +66,9 @@
     <div id="question"></div>
     <div id="options"></div>
     <div id="result"></div>
+    <button id="next-btn" style="display:none;" onclick="nextQuestion()">Lanjut</button>
   </div>
+  <div id="final-feedback"></div>
 
   <script>
     const questions = [
@@ -68,15 +77,18 @@
         options: [
           {
             text: "Blokir aja, biar gak nyebelin! 🤐",
-            response: "Huh, itu baru netizen tangguh! Tapi jangan asal blokir, nanti bisa jadi penasaran! 😏"
+            response: "Wah, itu dia! Netizen tangguh yang gak mau repot! Tapi hati-hati, bisa-bisa kamu jadi lebih penasaran deh! 😂",
+            value: 1
           },
           {
             text: "Beri kesempatan mereka untuk berbicara, biar bisa kasih pencerahan! 💡",
-            response: "Hmm, mau pencerahan malah kasih pencerahan? Kamu beneran deh! 😜"
+            response: "Wow, pencerahan banget! Cuma hati-hati, jangan sampe kamu malah di-blow-up, ya? 😏",
+            value: 2
           },
           {
             text: "Balas dengan meme lucu aja, biar mereka sadar! 😂",
-            response: "Ayo! Memesolution! Pasti si netizen malah bingung, ngapain diseriusin! 🤣"
+            response: "Bener tuh! Si netizen malah bingung, ‘ini ngapain sih gue di-meme-in?’ 😜",
+            value: 3
           }
         ]
       },
@@ -85,15 +97,18 @@
         options: [
           {
             text: "Senyum aja, terus scroll ke bawah, biar gak ikutan emosi 😌",
-            response: "Itu dia, netizen bijak! Harusnya banyak yang kayak gini, jangan ikut-ikutan emosi! 😎"
+            response: "Tahu diri! Netizen bijak, ya? Jangan bawa emosi ke komentar, nanti bisa kena karma! 😎",
+            value: 1
           },
           {
             text: "Komentar langsung: 'Eh, kamu gak punya kerjaan apa?' 🤔",
-            response: "Wah, siap-siap aja ditungguin di blokir! 😂 Nggak bisa gitu deh, bro!"
+            response: "Wah, siap-siap aja deh! Ini mah netizen yang suka cari masalah. Pasti langsung dibalas, ‘Mau di-banned nih?’ 😅",
+            value: 2
           },
           {
             text: "Like dulu, baru komen sambil nunggu drama berlanjut 😅",
-            response: "Ah, kamu fans berat drama, ya? Tunggu aja sampai episode berikutnya, pasti makin seru! 😆"
+            response: "Hmm, pengamat drama? Ayo, tungguin episode selanjutnya, siapa tahu makin seru! 😂",
+            value: 3
           }
         ]
       },
@@ -102,25 +117,30 @@
         options: [
           {
             text: "Langsung share, biar semua orang tau! 📰",
-            response: "Wah, kamu pasti suka drama, ya? Sabar dulu, ntar pasti ada kejutan! 🧐"
+            response: "Langsung disebar, tanpa pikir panjang! Kamu netizen sejati yang suka drama, ya? 😏",
+            value: 3
           },
           {
             text: "Baca dulu, pikir-pikir sebelum komentar atau share! 🤔",
-            response: "Cerdas! Kamu gak mau jadi buzzer, kan? Pikir dulu sebelum ikut tren! 😎"
+            response: "Wah, kamu tipe netizen yang punya kepala dingin! Nggak sembarangan ikutan viral, keren! 😎",
+            value: 2
           },
           {
             text: "Cek komentar orang dulu, kalau banyak yang setuju baru share! 🙄",
-            response: "Hmm, jago strategi nih! Kalo banyak yang setuju, berarti oke untuk share, ya? 😏"
+            response: "Ah, pinter! Kamu kayak mau ngikutin tren yang ‘sedang hits’, tapi tetep selektif! 😜",
+            value: 1
           }
         ]
       }
     ];
 
     let currentQuestion = 0;
+    let totalScore = 0;
 
     function showQuestion() {
       if (currentQuestion < questions.length) {
         document.getElementById('result').innerHTML = "";
+        document.getElementById('final-feedback').innerHTML = "";
         document.getElementById('question').innerHTML = questions[currentQuestion].question;
         const optionsDiv = document.getElementById('options');
         optionsDiv.innerHTML = "";
@@ -130,16 +150,32 @@
           button.innerText = option.text;
           button.onclick = () => {
             document.getElementById('result').innerHTML = option.response;
-            setTimeout(() => {
-              currentQuestion++;
-              showQuestion();
-            }, 1500); // lanjut ke soal berikutnya setelah 1,5 detik
+            totalScore += option.value;
+            document.getElementById('next-btn').style.display = 'block';
           };
           optionsDiv.appendChild(button);
         });
       } else {
-        document.getElementById('quiz-container').innerHTML = "<h2>🎉 Kamu benar-benar netizen sejati! 🎉</h2>";
+        showFinalFeedback();
       }
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      document.getElementById('next-btn').style.display = 'none';
+      showQuestion();
+    }
+
+    function showFinalFeedback() {
+      let feedback = "";
+      if (totalScore <= 3) {
+        feedback = "Kamu itu netizen yang penuh pertimbangan, kayak detektif yang gak sembarangan geser jari ke komen! 🤔💭";
+      } else if (totalScore <= 6) {
+        feedback = "Wah, kamu netizen yang cerdas! Punya opini tapi gak asal ngegas! 😉💡";
+      } else {
+        feedback = "Jelas banget! Kamu netizen dengan drama yang nggak ada habisnya! Ayo, cari perhatian! 😂🔥";
+      }
+      document.getElementById('final-feedback').innerHTML = feedback;
     }
 
     showQuestion();
