@@ -66,25 +66,52 @@
       {
         question: "Apa sikapmu kalau ada netizen yang sering ngehujat tanpa alasan jelas?",
         options: [
-          "Blokir aja, biar gak nyebelin! 🤐",
-          "Beri kesempatan mereka untuk berbicara, biar bisa kasih pencerahan! 💡",
-          "Balas dengan meme lucu aja, biar mereka sadar! 😂"
+          {
+            text: "Blokir aja, biar gak nyebelin! 🤐",
+            response: "Huh, itu baru netizen tangguh! Tapi jangan asal blokir, nanti bisa jadi penasaran! 😏"
+          },
+          {
+            text: "Beri kesempatan mereka untuk berbicara, biar bisa kasih pencerahan! 💡",
+            response: "Hmm, mau pencerahan malah kasih pencerahan? Kamu beneran deh! 😜"
+          },
+          {
+            text: "Balas dengan meme lucu aja, biar mereka sadar! 😂",
+            response: "Ayo! Memesolution! Pasti si netizen malah bingung, ngapain diseriusin! 🤣"
+          }
         ]
       },
       {
         question: "Kamu lihat postingan orang yang sangat nyebelin, reaksi kamu?",
         options: [
-          "Senyum aja, terus scroll ke bawah, biar gak ikutan emosi 😌",
-          "Komentar langsung: 'Eh, kamu gak punya kerjaan apa?' 🤔",
-          "Like dulu, baru komen sambil nunggu drama berlanjut 😅"
+          {
+            text: "Senyum aja, terus scroll ke bawah, biar gak ikutan emosi 😌",
+            response: "Itu dia, netizen bijak! Harusnya banyak yang kayak gini, jangan ikut-ikutan emosi! 😎"
+          },
+          {
+            text: "Komentar langsung: 'Eh, kamu gak punya kerjaan apa?' 🤔",
+            response: "Wah, siap-siap aja ditungguin di blokir! 😂 Nggak bisa gitu deh, bro!"
+          },
+          {
+            text: "Like dulu, baru komen sambil nunggu drama berlanjut 😅",
+            response: "Ah, kamu fans berat drama, ya? Tunggu aja sampai episode berikutnya, pasti makin seru! 😆"
+          }
         ]
       },
       {
         question: "Ketika ada berita viral yang sensitif, apa yang kamu lakukan?",
         options: [
-          "Langsung share, biar semua orang tau! 📰",
-          "Baca dulu, pikir-pikir sebelum komentar atau share! 🤔",
-          "Cek komentar orang dulu, kalau banyak yang setuju baru share! 🙄"
+          {
+            text: "Langsung share, biar semua orang tau! 📰",
+            response: "Wah, kamu pasti suka drama, ya? Sabar dulu, ntar pasti ada kejutan! 🧐"
+          },
+          {
+            text: "Baca dulu, pikir-pikir sebelum komentar atau share! 🤔",
+            response: "Cerdas! Kamu gak mau jadi buzzer, kan? Pikir dulu sebelum ikut tren! 😎"
+          },
+          {
+            text: "Cek komentar orang dulu, kalau banyak yang setuju baru share! 🙄",
+            response: "Hmm, jago strategi nih! Kalo banyak yang setuju, berarti oke untuk share, ya? 😏"
+          }
         ]
       }
     ];
@@ -100,9 +127,9 @@
 
         questions[currentQuestion].options.forEach(option => {
           const button = document.createElement('button');
-          button.innerText = option;
+          button.innerText = option.text;
           button.onclick = () => {
-            document.getElementById('result').innerHTML = "Jawaban kamu: " + option;
+            document.getElementById('result').innerHTML = option.response;
             setTimeout(() => {
               currentQuestion++;
               showQuestion();
